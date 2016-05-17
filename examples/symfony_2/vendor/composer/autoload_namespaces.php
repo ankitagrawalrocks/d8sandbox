@@ -6,12 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Symfony\\Component\\Routing' => array($vendorDir . '/symfony/routing'),
-    'Symfony\\Component\\HttpKernel' => array($vendorDir . '/symfony/http-kernel'),
-    'Symfony\\Component\\HttpFoundation' => array($vendorDir . '/symfony/http-foundation'),
-    'Symfony\\Component\\EventDispatcher' => array($vendorDir . '/symfony/event-dispatcher'),
-    'Symfony\\Component\\DependencyInjection' => array($vendorDir . '/symfony/dependency-injection'),
+    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
+    'Symfony\\Component\\Routing\\' => array($vendorDir . '/symfony/routing'),
+    'Symfony\\Component\\HttpKernel\\' => array($vendorDir . '/symfony/http-kernel'),
+    'Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
+    'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
+    'Symfony\\Component\\DependencyInjection\\' => array($vendorDir . '/symfony/dependency-injection'),
+    'Symfony\\Component\\Debug\\' => array($vendorDir . '/symfony/debug'),
+    'Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
     'Simplex' => array($baseDir . '/src'),
-    'SessionHandlerInterface' => array($vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Calendar' => array($baseDir . '/src'),
 );

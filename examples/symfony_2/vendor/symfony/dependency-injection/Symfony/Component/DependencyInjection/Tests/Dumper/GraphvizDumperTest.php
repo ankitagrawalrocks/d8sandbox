@@ -18,13 +18,6 @@ class GraphvizDumperTest extends \PHPUnit_Framework_TestCase
 {
     protected static $fixturesPath;
 
-    protected function setUp()
-    {
-        if (!class_exists('Symfony\Component\Config\Loader\Loader')) {
-            $this->markTestSkipped('The "Config" component is not available');
-        }
-    }
-
     public static function setUpBeforeClass()
     {
         self::$fixturesPath = __DIR__.'/../Fixtures/';
@@ -68,5 +61,12 @@ class GraphvizDumperTest extends \PHPUnit_Framework_TestCase
         $container = include self::$fixturesPath.'/containers/container14.php';
         $dumper = new GraphvizDumper($container);
         $this->assertEquals(str_replace('%path%', __DIR__, file_get_contents(self::$fixturesPath.'/graphviz/services14.dot')), $dumper->dump(), '->dump() dumps services');
+    }
+
+    public function testDumpWithScopes()
+    {
+        $container = include self::$fixturesPath.'/containers/container18.php';
+        $dumper = new GraphvizDumper($container);
+        $this->assertEquals(str_replace('%path%', __DIR__, file_get_contents(self::$fixturesPath.'/graphviz/services18.dot')), $dumper->dump(), '->dump() dumps services');
     }
 }
