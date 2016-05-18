@@ -23,8 +23,14 @@ class Blindd8Controller extends ControllerBase
    */
   public function content()
   {
+    $account = \Drupal::currentUser();
+    $name = $account->getDisplayName();
+
+    $uuid_generator = \Drupal::service('uuid');
+    $uuid = $uuid_generator->generate();
+
     $output = array(
-      '#markup' => $this->t('This is where we put all the things. All.'),
+      '#markup' => $this->t('Hey @name, here is a unique ID for you: @uuid.', ['@name' => $name, '@uuid' => $uuid]),
     );
     return $output;
   }
