@@ -10,7 +10,9 @@ namespace Drupal\blindd8;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Subscribes to the kernel request event to completely obliterate the default content.
@@ -27,11 +29,27 @@ class BlindD8Subscriber implements EventSubscriberInterface {
    *   The response event, which we will take over like like a boss.
    */
   public function onResponse(FilterResponseEvent $event) {
-    $route_name = \Drupal::request()->attributes->get(RouteObjectInterface::ROUTE_NAME);
+
+    $route_name = \Drupal::request()->get(RouteObjectInterface::ROUTE_NAME);
     if ($route_name == 'blindd8.page') {
       $response = $event->getResponse();
       $response->setContent('Blind date, get it?!');
-      $response->setStatusCode('404');
+      //$response->setStatusCode('404');
+    }
+  }
+
+  /**
+   * Redirects the user when they're requesting our nearly blank page.
+   *
+   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   *   The response event.
+   */
+  public function checkForRedirect(GetResponseEvent $event) {
+
+    $route_name = \Drupal::request()->get(RouteObjectInterface::ROUTE_NAME);
+    if ($route_name == 'blindd8.page') {
+      drupal_set_message('Because the page you were about to access does not actually have much on it, we are redirecting you to something more useful.');
+      $event->setResponse(new RedirectResponse(\Drupal\Core\Url::fromUri('internal:/')->toString())); // This is what we do in D8 instead of drupal_goto('<front>');
     }
   }
 
@@ -40,6 +58,7 @@ class BlindD8Subscriber implements EventSubscriberInterface {
    */
   static function getSubscribedEvents(){
     $events[KernelEvents::RESPONSE][] = array('onResponse', 100);
+    $events[KernelEvents::REQUEST][] = array('checkForRedirect');
     return $events;
   }
 
