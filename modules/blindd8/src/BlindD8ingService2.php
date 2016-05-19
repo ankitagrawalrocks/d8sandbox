@@ -7,8 +7,8 @@
 
 namespace Drupal\blindd8;
 
-class BlindD8ingService implements BlindD8ingServiceInterface {
+class BlindD8ingService2 implements BlindD8ingService2Interface {
   public function getTagline() {
-    return t('D8ting is fun with Drupal!');
+    return t('Drupal is fun with overrides!');
   }
 }
