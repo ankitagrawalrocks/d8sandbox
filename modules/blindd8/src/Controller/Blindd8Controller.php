@@ -9,7 +9,6 @@ namespace Drupal\blindd8\Controller;
 
 use Drupal\blindd8\BlindD8NotableEvent;
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Defines a controller to experiment with.
