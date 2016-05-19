@@ -7,6 +7,7 @@
 
 namespace Drupal\blindd8;
 
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -54,12 +55,21 @@ class BlindD8Subscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Sets some updated string if onNotableEvent is triggered
+   *
+   * @param \Drupal\blindd8\BlindD8NotableEvent $event
+   */
+  public function onNotableEvent(BlindD8NotableEvent $event) {
+    $event->setString('Updated string!');
+  }
+
+  /**
    * {@inheritdoc}
    */
   static function getSubscribedEvents(){
-    $events[KernelEvents::RESPONSE][] = array('onResponse', 100);
-    $events[KernelEvents::REQUEST][] = array('checkForRedirect');
+    //$events[KernelEvents::RESPONSE][] = array('onResponse', 100);
+    //$events[KernelEvents::REQUEST][] = array('checkForRedirect');
+    $events['blindd8.notable_event'][] = array('onNotableEvent');
     return $events;
   }
-
 }

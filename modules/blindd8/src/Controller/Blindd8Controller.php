@@ -7,7 +7,9 @@
 
 namespace Drupal\blindd8\Controller;
 
+use Drupal\blindd8\BlindD8NotableEvent;
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Defines a controller to experiment with.
@@ -23,6 +25,12 @@ class Blindd8Controller extends ControllerBase
    */
   public function content()
   {
+    // Custom event dispatch
+    $string = 'This is the default string';
+    $event = new BlindD8NotableEvent($string);
+    \Drupal::service('event_dispatcher')->dispatch('blindd8.notable_event', $event);
+    $string = $event->getString();
+
     // User name
     $account = \Drupal::currentUser();
     $name = $account->getDisplayName();
@@ -38,7 +46,7 @@ class Blindd8Controller extends ControllerBase
     $tagline = $blindd8ingservice->getTagline();
 
     $output = array(
-      '#markup' => $this->t('Hey @name, here is a unique ID for you: @uuid. @tagline', ['@name' => $name, '@uuid' => $uuid, '@tagline' => $tagline]),
+      '#markup' => $this->t('Hey @name, here is a unique ID for you: @uuid. @tagline @string', ['@name' => $name, '@uuid' => $uuid, '@tagline' => $tagline, '@string' => $string]),
     );
     return $output;
   }
