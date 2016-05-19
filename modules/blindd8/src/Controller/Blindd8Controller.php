@@ -10,7 +10,6 @@ namespace Drupal\blindd8\Controller;
 use Drupal\blindd8\BlindD8NotableEvent;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Defines a controller to experiment with.
@@ -46,14 +45,8 @@ class Blindd8Controller extends ControllerBase
     $blindd8ingservice = \Drupal::service('blindd8.blindd8ingservice');
     $tagline = $blindd8ingservice->getTagline();
 
-    // Let's create a subrequest
-    $request = \Drupal::service('request_stack');
-    $subrequest = $request::create($request->getBaseUrl() . '/admin', 'GET', [], $request->cookies->all(), [], $request->server->all());
-    $response = \Drupal::service('http_kernel')->handle($subrequest, HttpKernelInterface::SUB_REQUEST);
-
     $output = array(
-//      '#markup' => $this->t('Hey @name, here is a unique ID for you: @uuid. @tagline @string', ['@name' => $name, '@uuid' => $uuid, '@tagline' => $tagline, '@string' => $string]),
-      '#markup' => $response->getContent()
+      '#markup' => $this->t('Hey @name, here is a unique ID for you: @uuid. @tagline @string', ['@name' => $name, '@uuid' => $uuid, '@tagline' => $tagline, '@string' => $string]),
     );
     return $output;
   }
