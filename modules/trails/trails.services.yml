@@ -1,0 +1,3 @@
+services:
+  trails.trailssubscriber:
+    class: Drupal\trails\TrailsSubscriber
