@@ -35,7 +35,7 @@ class TrailsHistoryBlock extends BlockBase {
     $reverse_trail = array_reverse($trail);
 
     // Grab the number of items to display
-    $num_items = \Drupal::state()->get('trails.num_items') ?: 5;
+    $num_items = $this->configuration['num_to_show'] ?: 5;
 
     // Output the latest items as a list
     $output = ''; // Initialize variable, this was added after the video was created.
@@ -76,5 +76,12 @@ class TrailsHistoryBlock extends BlockBase {
     );
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['num_to_show'] = $form_state->getValue('num_to_show');
   }
 }

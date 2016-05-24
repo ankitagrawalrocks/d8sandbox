@@ -42,14 +42,15 @@ class TrailsSubscriber implements EventSubscriberInterface {
     //$trail = variable_get('trails_history', array());
     $trail = \Drupal::state()->get('trails.trail') ?: array();
 
-    if ($route = $request->attributes->get(\Symfony\Cmf\Component\Routing\RouteObjectInterface::ROUTE_OBJECT)) {
-      $title = \Drupal::service('title_resolver')->getTitle($request, $route);
-    }
-
     // Add current page to trail.
+    $request = \Drupal::request();
+    $route_match = \Drupal::routeMatch();
+    $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+    $current_path = \Drupal::request()->getRequestUri();
+
     $trail[] = array(
-      'title' => $title,
-      'path' => current_path(),
+      'title' => strip_tags($title),
+      'path' => $current_path,
       'timestamp' => REQUEST_TIME,
     );
 
