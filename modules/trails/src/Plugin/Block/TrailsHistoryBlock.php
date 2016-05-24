@@ -4,6 +4,8 @@ namespace Drupal\trails\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Provides a 'Powered by Drupal' block.
@@ -29,7 +31,7 @@ class TrailsHistoryBlock extends BlockBase {
     // Create list of previous paths.
 
     // Grab the trail history from a variable
-    $trail = \Drupal::state()->get('trails.history') ?: [];
+    $trail = \Drupal::state()->get('trails.trail') ?: [];
 
     // Flip the saved array to show newest pages first.
     $reverse_trail = array_reverse($trail);
@@ -41,7 +43,9 @@ class TrailsHistoryBlock extends BlockBase {
     $output = ''; // Initialize variable, this was added after the video was created.
     for ($i = 0; $i < $num_items; $i++) {
       if ($item = $reverse_trail[$i]) {
-        $output .= '<li>' . l($item['title'], $item['path']) . ' - ' . \Drupal::service('date')->formatInterval(REQUEST_TIME - $item['timestamp']) . ' ' . t('ago') . '</li>';
+        $link = Link::fromTextAndUrl($item['title'], Url::fromUserInput($item['path']));
+        $html = $link->toString()->getGeneratedLink();
+        $output .= '<li>' . $html . ' - ' . \Drupal::service('date.formatter')->formatInterval(REQUEST_TIME - $item['timestamp']) . ' ' . t('ago') . '</li>';
       }
     }
     if (isset($output)) {
@@ -82,6 +86,6 @@ class TrailsHistoryBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $this->configuration['num_to_show'] = $form_state->getValue('num_to_show');
+    $this->configuration['num_to_show'] = $form_state->getValue('trails_block_num');
   }
 }

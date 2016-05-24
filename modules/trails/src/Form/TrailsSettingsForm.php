@@ -21,7 +21,7 @@ class TrailsSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['system.image'];
+    return ['trails.settings'];
   }
 
   /**

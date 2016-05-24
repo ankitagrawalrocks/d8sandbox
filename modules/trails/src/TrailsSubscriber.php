@@ -9,10 +9,7 @@ namespace Drupal\trails;
 
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Subscribes to the kernel request event to completely obliterate the default content.
@@ -31,15 +28,12 @@ class TrailsSubscriber implements EventSubscriberInterface {
    */
   public function saveTrail(GetResponseEvent $event) {
 
-    \Drupal::state()->delete('trails.trail');
-
     $request = \Drupal::request();
     if ($request->getMethod() != 'GET') {
       return;
     }
 
     // Grab the trail history from a variable
-    //$trail = variable_get('trails_history', array());
     $trail = \Drupal::state()->get('trails.trail') ?: array();
 
     // Add current page to trail.
@@ -62,7 +56,7 @@ class TrailsSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  static function getSubscribedEvents(){
+  public static function getSubscribedEvents(){
     $events[KernelEvents::REQUEST][] = array('saveTrail');
     return $events;
   }

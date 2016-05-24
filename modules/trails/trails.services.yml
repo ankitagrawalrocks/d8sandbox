@@ -1,3 +1,5 @@
 services:
   trails.trailssubscriber:
     class: Drupal\trails\TrailsSubscriber
+    tags:
+      - { name: event_subscriber }
