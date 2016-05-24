@@ -41,11 +41,13 @@ class TrailsHistoryBlock extends BlockBase {
 
     // Output the latest items as a list
     $output = ''; // Initialize variable, this was added after the video was created.
+    $items = [];
+
     for ($i = 0; $i < $num_items; $i++) {
       if ($item = $reverse_trail[$i]) {
         $link = Link::fromTextAndUrl($item['title'], Url::fromUserInput($item['path']));
         $html = $link->toString()->getGeneratedLink();
-        $output .= '<li>' . $html . ' - ' . \Drupal::service('date.formatter')->formatInterval(REQUEST_TIME - $item['timestamp']) . ' ' . t('ago') . '</li>';
+        $items[] = [ 'link' => $html, 'ago' => \Drupal::service('date.formatter')->formatInterval(REQUEST_TIME - $item['timestamp']) ];
       }
     }
     if (isset($output)) {
@@ -59,7 +61,7 @@ class TrailsHistoryBlock extends BlockBase {
     $block['subject'] = 'History';
     $block['content'] = $output;
 
-    return ['#theme' => 'trails_list'];
+    return ['#theme' => 'trails_list', '#num_items' => $num_items, '#items' => $items];
   }
 
   /**
