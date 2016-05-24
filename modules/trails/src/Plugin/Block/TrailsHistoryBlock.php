@@ -3,6 +3,7 @@
 namespace Drupal\trails\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a 'Powered by Drupal' block.
@@ -57,4 +58,23 @@ class TrailsHistoryBlock extends BlockBase {
     return ['#markup' => $output];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildConfigurationForm($form, $form_state);
+
+    // Get the maximum allowed value from the configuration form.
+    $max_to_display = \Drupal::config('trails.settings')->get('max_in_settings');
+
+    // Add a select box of numbers form 1 to $max_to_display.
+    $form['trails_block_num'] = array(
+      '#type' => 'select',
+      '#title' => t('Number of items to show'),
+      '#default_value' => $this->configuration['num_to_show'] ?: 5,
+      '#options' => array_combine(range(1, $max_to_display), range(1, $max_to_display)),
+    );
+
+    return $form;
+  }
 }
