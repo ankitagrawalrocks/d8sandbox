@@ -16,6 +16,6 @@
 <p>{{ 'Below are the last @num pages you have visited.'|t({ '@num': num_items }) }}</p>
 <ul>
     {% for item in items %}
-        <li>{{ item.link }} - {{ item.ago }} {{ 'ago'|t }}</li>
+        <li><a href="{{ item.href }}">{{ item.title }}</a> - {{ item.ago }} {{ 'ago'|t }}</li>
     {% endfor %}
 </ul>

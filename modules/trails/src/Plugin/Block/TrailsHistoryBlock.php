@@ -45,9 +45,7 @@ class TrailsHistoryBlock extends BlockBase {
 
     for ($i = 0; $i < $num_items; $i++) {
       if ($item = $reverse_trail[$i]) {
-        $link = Link::fromTextAndUrl($item['title'], Url::fromUserInput($item['path']));
-        $html = $link->toString()->getGeneratedLink();
-        $items[] = [ 'link' => $html, 'ago' => \Drupal::service('date.formatter')->formatInterval(REQUEST_TIME - $item['timestamp']) ];
+        $items[] = [ 'title' => $item['title'], 'href' => Url::fromUserInput($item['path']), 'ago' => \Drupal::service('date.formatter')->formatInterval(REQUEST_TIME - $item['timestamp']) ];
       }
     }
     if (isset($output)) {
