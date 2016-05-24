@@ -50,7 +50,7 @@ class TrailsHistoryBlock extends BlockBase {
     }
     if (isset($output)) {
       $output = '
-            <p>' . t('Below are the last !num pages you have visited.', array('!num' => $num_items)) . '</p>
+            <p>' . t('Below are the last @num pages you have visited.', array('@num' => $num_items)) . '</p>
             <ul>' . $output . '</ul>
           ';
     }
@@ -59,7 +59,7 @@ class TrailsHistoryBlock extends BlockBase {
     $block['subject'] = 'History';
     $block['content'] = $output;
 
-    return ['#markup' => $output];
+    return ['#theme' => 'trails_list'];
   }
 
   /**
