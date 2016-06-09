@@ -5,3 +5,11 @@ blindd8.page:
     _title: 'Welcome to your example page'
   requirements:
     _permission: 'access content'
+
+blindd8.someform:
+  path: 'mymodule/config'
+  defaults:
+    _form: 'Drupal\blindd8\Form\BlindD8SomeSettingsForm'
+    _title: 'Some form settings page'
+  requirements:
+    _permission: 'administer content'

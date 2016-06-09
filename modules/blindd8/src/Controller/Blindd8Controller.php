@@ -44,6 +44,11 @@ class Blindd8Controller extends ControllerBase
     $blindd8ingservice = \Drupal::service('blindd8.blindd8ingservice');
     $tagline = $blindd8ingservice->getTagline();
 
+    // Display configuration
+    $some_text = \Drupal::config('blindd8.settings')->get('some_text');
+    $some_select = \Drupal::config('blindd8.settings')->get('some_select');
+    $some_radio = \Drupal::config('blindd8.settings')->get('some_text');
+
     $output = array(
       '#markup' => $this->t('Hey @name, here is a unique ID for you: @uuid. @tagline @string', ['@name' => $name, '@uuid' => $uuid, '@tagline' => $tagline, '@string' => $string]),
     );
