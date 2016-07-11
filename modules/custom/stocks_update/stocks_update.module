@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ *
+ * See here for more information:
+ * https://api.drupal.org/api/drupal/core%21core.api.php/function/hook_cron/8.2.x
+ */
+function stocks_update_cron() {
+
+
+}

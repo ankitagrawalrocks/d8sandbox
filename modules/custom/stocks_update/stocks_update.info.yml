@@ -1,0 +1,4 @@
+name: Drupal 8 Update Stocks
+description: 'DrupalCard #5: Cronjob which updates stock exchange price cards'
+type: module
+core: 8.x
