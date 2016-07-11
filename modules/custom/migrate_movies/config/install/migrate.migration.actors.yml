@@ -1,0 +1,19 @@
+id: actors
+label: Actors
+migration_group: d8cards
+
+source:
+  plugin: csv
+  path: 'sites/private/files/Movie DB - actors.csv'
+  header_row_count: 1
+  keys:
+    - id
+
+destination:
+  plugin: entity:node
+
+process:
+  type:
+    plugin: default_value
+    default_value: actor
+  title: name

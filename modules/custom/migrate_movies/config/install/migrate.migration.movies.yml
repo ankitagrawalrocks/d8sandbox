@@ -1,0 +1,29 @@
+id: movies
+label: Movies
+migration_group: d8cards
+
+source:
+  plugin: csv
+  path: 'sites/private/files/Movie DB - movies.csv'
+  header_row_count: 1
+  keys:
+    - id
+
+destination:
+  plugin: entity:node
+
+process:
+  type:
+    plugin: default_value
+    default_value: movie
+  title: title
+  field_plot: plot
+  field_actors:
+    plugin: migration
+    migration: actors
+    source: actors
+  field_genre: genre
+
+migration_dependencies:
+  required:
+    - actors
