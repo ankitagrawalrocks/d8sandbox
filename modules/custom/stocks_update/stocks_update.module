@@ -7,45 +7,5 @@
  * https://api.drupal.org/api/drupal/core%21core.api.php/function/hook_cron/8.2.x
  */
 function stocks_update_cron() {
-  $entity_query_service = \Drupal::service('entity.query');
-
-  /** @var \Drupal\Component\Serialization\Json $json_service */
-  $json_service = \Drupal::service('serialization.json');
-
-  /** @var \Drupal\Core\Entity\Query\Sql\Query $query */
-  $query = $entity_query_service->get('block_content')
-    ->condition('type', 'stock_exchange_rate_card');
-
-  $nids = $query->execute();
-
-  $entities = \Drupal::entityTypeManager()->getStorage('block_content')->loadMultiple($nids);
-
-  $url = 'http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=%symbol%';
-
-  /**
-   * @var int $nid
-   * @var \Drupal\Core\Entity\ContentEntityBase $entity
-   */
-  foreach ($entities as $nid => $entity) {
-    /** @var \GuzzleHttp\Client $client */
-    $client = \Drupal::httpClient();
-    $symbol = $entity->get('field_symbol')->value;
-    $entity_url = str_replace('%symbol%', $symbol, $url);
-
-// Example to get first item of multivalue field or all values:
-//    $multival = $entity->field_some_multi_value->value;
-//    $symbolGetValue = $entity->field_symbol->getValue();
-//    $multivalGetValue = $entity->field_some_multi_value->getValue();
-    $request = $client->get($entity_url);
-
-// Example of getting status code 200:
-//    $status_code = $request->getStatusCode();
-    $body = $request->getBody();
-    $data_decoded = $json_service->decode($body->getContents());
-
-    $entity->get('field_last_price')->value = $data_decoded['LastPrice'];
-    $entity->get('field_change')->value = $data_decoded['Change'];
-
-    $entity->save();
-  }
+  \Drupal::service('stocks_update.stocksupdaterservice')->process();
 }

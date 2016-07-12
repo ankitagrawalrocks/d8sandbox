@@ -1,0 +1,4 @@
+services:
+  stocks_update.stocksupdaterservice:
+    class: Drupal\stocks_update\StocksUpdaterService
+    arguments: ['@entity.query', '@serialization.json', '@entity_type.manager', '@http_client']
