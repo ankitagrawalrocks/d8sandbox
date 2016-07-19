@@ -1,6 +1,6 @@
 id: actors
 label: Actors
-migration_group: d8cards
+migration_group: movies
 
 source:
   plugin: csv
