@@ -1,0 +1,7 @@
+config_form.someform:
+  path: 'config_form/settings'
+  defaults:
+    _form: 'Drupal\config_form\Form\ConfigFormSettingsForm'
+    _title: 'Config Form settings page'
+  requirements:
+    _permission: 'access config form'

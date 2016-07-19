@@ -1,0 +1,4 @@
+access config form:
+  title: 'Access configuration form'
+  description: 'Access the Day #3 configuration form.'
+  restrict access: true    # displays warning that setting up this one may have security impact :o)

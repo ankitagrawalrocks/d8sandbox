@@ -1,0 +1,6 @@
+name: Configuration form
+type: module
+description: 'DrupalCard #3: Configuration form'
+package: BuildAModule
+core: 8.x
+configure : config_form.settings
