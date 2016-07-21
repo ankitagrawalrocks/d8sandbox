@@ -1,0 +1,16 @@
+hackers-lib:
+  version: 1.x
+  css:
+    theme:
+      css/assets.css: {}
+  js:
+    js/assets.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+
+fancy-table:
+  version: 1.x
+  css:
+    theme:
+      css/fancy-table.css: {}

@@ -1,0 +1,7 @@
+attach_assets.index:
+  path: '/my-assets-example'
+  defaults:
+    _controller: '\Drupal\my_assets\Controller\MyAssetsController::index'
+    _title: 'My assets table example'
+  requirements:
+    _permission: 'access content'

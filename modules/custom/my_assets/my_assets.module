@@ -1,0 +1,11 @@
+<?php
+/**
+ * WARNING: It works *only* for elements!
+ *
+ * Implements hook_element_info_alter().
+ */
+function my_assets_element_info_alter(array &$types) {
+  if (isset($types['table'])) {
+    $types['table']['#attached']['library'][] = 'my_assets/fancy-table';
+  }
+}
