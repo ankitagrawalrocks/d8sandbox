@@ -1,0 +1,6 @@
+type: module
+name: Capitalize
+description: 'Lesson 08 from D8Cards.com: Filter to capitalize selected words'
+package: Mirsoft
+core: 8.x
+
