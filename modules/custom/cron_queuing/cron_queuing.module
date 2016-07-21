@@ -1,0 +1,18 @@
+<?php
+/**
+ * Implements hook_entity_insert().
+ */
+function cron_queuing_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+
+  if ($entity->getEntityTypeId() == 'user') {
+    /** @var \Drupal\Core\Queue\QueueFactory $queue_factory */
+    $queue_factory = \Drupal::service('queue');
+    /** @var \Drupal\Core\Queue\QueueInterface $queue */
+    $queue = $queue_factory->get('cron_welcome_mail_sender');
+    $item = new \stdClass();
+    /** @var \Drupal\user\Entity\User $entity */
+    $item->nid = $entity->id();
+    $queue->createItem($item);
+  }
+}
+

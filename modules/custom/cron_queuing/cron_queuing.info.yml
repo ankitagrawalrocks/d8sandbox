@@ -1,0 +1,6 @@
+type: module
+name: Cron Queuing
+description: 'Lesson 07 from D8Cards.com: Cron Queuing'
+package: Mirsoft
+core: 8.x
+
