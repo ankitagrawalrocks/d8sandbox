@@ -1,0 +1,5 @@
+name: Contact entity
+type: module
+description: 'DrupalCard #11: Contact entity'
+package: Mirsoft
+core: 8.x
