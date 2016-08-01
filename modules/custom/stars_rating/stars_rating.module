@@ -1,0 +1,12 @@
+<?php
+/**
+ * Implements hook_theme().
+ */
+function stars_rating_theme() {
+  return array(
+    'stars_rating' => array(
+      'variables' => array('width' => 0),
+    ),
+  );
+}
+
