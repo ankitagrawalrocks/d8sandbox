@@ -1,0 +1,6 @@
+type: module
+name: Composer Example
+description: 'Lesson 17 from D8Cards.com: Example of composer usage'
+package: Mirsoft
+core: 8.x
+

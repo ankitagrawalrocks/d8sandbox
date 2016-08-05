@@ -1,0 +1,7 @@
+composer_example.latlongform:
+  path: 'latlong/config'
+  defaults:
+    _form: 'Drupal\composer_example\Form\LatLongForm'
+    _title: 'Settings form for latitude ane longitude'
+  requirements:
+    _permission: 'administer content'
