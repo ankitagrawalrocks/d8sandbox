@@ -53,9 +53,9 @@ class LatLongBlock extends BlockBase {
     $longitude = $this->configuration['longitude'] ?: $this->configFactory->get('default_longitude');
 
     $forecast = new Forecast('7411b0e6d5e0c99fbd7405fd6de00cd5');
+    $forecastResult = $forecast->get($latitude, $longitude);
 
-
-    return ['#markup' => 'latitude: '.$latitude.', longitude: '.$longitude. ' '.$forecast->get($latitude, $longitude)];
+    return ['#markup' => 'latitude: '.$latitude.', longitude: '.$longitude. ' Forecast: '.$forecastResult->hourly->summary];
   }
 
   /**

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5e14f057cfce03180014a6a75e38de6f",
-    "content-hash": "7d72dc63a3981fb6edb92f6786ba94b1",
+    "hash": "de0c15d684d5c0a6b3fd1456b2680703",
+    "content-hash": "4e656e589d61ef92b66258bd7571bcf6",
     "packages": [
         {
             "name": "composer/installers",
@@ -682,6 +682,48 @@
                 "validator"
             ],
             "time": "2016-07-03 21:52:18"
+        },
+        {
+            "name": "guhelski/forecast-php",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guhelski/forecast-php.git",
+                "reference": "f68f85ba6cf93e100e8194e9f05daa64ad146352"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guhelski/forecast-php/zipball/f68f85ba6cf93e100e8194e9f05daa64ad146352",
+                "reference": "f68f85ba6cf93e100e8194e9f05daa64ad146352",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Uhelski",
+                    "email": "guilherme@uhelski.org",
+                    "homepage": "http://uhelski.org"
+                }
+            ],
+            "description": "Drop dead simple Forecast.io API v2 wrapper in PHP",
+            "keywords": [
+                "forecast",
+                "forecast.io",
+                "weather"
+            ],
+            "time": "2015-07-23 17:47:53"
         },
         {
             "name": "guzzlehttp/guzzle",
