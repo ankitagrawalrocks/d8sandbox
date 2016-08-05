@@ -49,6 +49,9 @@ class PageExampleController extends ControllerBase {
    * appropriate blocks, navigation, and styling.
    */
   public function simple() {
+    /** @var \Drupal\Core\Logger\LoggerChannelFactory $loggerService */
+    $loggerService = \Drupal::service('logger.factory');
+    $loggerService->get('page_example_module')->notice('Simple page was displayed');
     return array(
       '#markup' => '<p>' . $this->t('Simple page: The quick brown fox jumps over the lazy dog.') . '</p>',
     );
