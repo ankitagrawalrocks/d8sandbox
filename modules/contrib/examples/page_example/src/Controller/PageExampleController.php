@@ -4,13 +4,28 @@ namespace Drupal\page_example\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Controller routines for page example routes.
  */
 class PageExampleController extends ControllerBase {
+
+  /** @var \Drupal\Core\Logger\LoggerChannelFactoryInterface  */
+  protected $loggerFactory;
+
+  public function __construct(LoggerChannelFactoryInterface $loggerFactory)
+  {
+    $this->loggerFactory = $loggerFactory;
+  }
+
+  public static function create(ContainerInterface $container) {
+    $loggerFactory = $container->get('logger.factory');
+    return new static($loggerFactory);
+  }
 
   /**
    * Constructs a page with descriptive content.
@@ -49,9 +64,7 @@ class PageExampleController extends ControllerBase {
    * appropriate blocks, navigation, and styling.
    */
   public function simple() {
-    /** @var \Drupal\Core\Logger\LoggerChannelFactory $loggerService */
-    $loggerService = \Drupal::service('logger.factory');
-    $loggerService->get('page_example_module')->notice('Simple page was displayed');
+    $this->loggerFactory->get('page_example_module')->notice('Simple page was displayed');
     return array(
       '#markup' => '<p>' . $this->t('Simple page: The quick brown fox jumps over the lazy dog.') . '</p>',
     );
