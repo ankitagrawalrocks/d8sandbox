@@ -3,21 +3,25 @@
 namespace Drupal\composer_example\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Forecast\Forecast;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a 'Powered by Drupal' block.
+ * Provides a 'Lat-Long' block with dependency injection.
+ * IMPORTANT: To be able to use DI, it MUST implement Contain
  *
  * @Block(
  *   id = "lat_long_block",
  *   admin_label = @Translation("Latitude and Longitude Weather forecast")
  * )
  */
-class LatLongBlock extends BlockBase {
+class LatLongBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /** @var \Drupal\Core\Config\ConfigFactory  */
-  protected $configFactory;
+  /** @var ImmutableConfig $defaultSettings  */
+  protected $defaultSettings;
 
   /**
    * Constructs a new BookNavigationBlock instance.
@@ -28,29 +32,35 @@ class LatLongBlock extends BlockBase {
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
+   * @param ImmutableConfig $defaultSettings
+   *   Configuration for module.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ImmutableConfig $defaultSettings) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     // DI of config doesn't work for some reason from static create method, I managed to inject config only this way...
-    $this->configFactory = \Drupal::config('composer_example.settings');
+    $this->defaultSettings = $defaultSettings;
   }
 
-//  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-//    return new static(
-//      $configuration,
-//      $plugin_id,
-//      $plugin_definition
-//    );
-//  }
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('config.factory')->get('composer_example.settings')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
   public function build() {
 
-    $latitude = $this->configuration['latitude'] ?: $this->configFactory->get('default_latitude');
-    $longitude = $this->configuration['longitude'] ?: $this->configFactory->get('default_longitude');
+    $latitude = $this->configuration['latitude'] ?: $this->defaultSettings->get('default_latitude');
+    $longitude = $this->configuration['longitude'] ?: $this->defaultSettings->get('default_longitude');
 
     $forecast = new Forecast('7411b0e6d5e0c99fbd7405fd6de00cd5');
     $forecastResult = $forecast->get($latitude, $longitude);
@@ -65,11 +75,11 @@ class LatLongBlock extends BlockBase {
     $form = parent::buildConfigurationForm($form, $form_state);
 
     if (!isset($this->configuration['latitude'])) {
-      $this->configuration['latitude'] = $this->configFactory->get('default_latitude');
+      $this->configuration['latitude'] = $this->defaultSettings->get('default_latitude');
     }
 
     if (!isset($this->configuration['longitude'])) {
-      $this->configuration['longitude'] = $this->configFactory->get('default_longitude');
+      $this->configuration['longitude'] = $this->defaultSettings->get('default_longitude');
     }
 
     $form['latitude'] = array(
