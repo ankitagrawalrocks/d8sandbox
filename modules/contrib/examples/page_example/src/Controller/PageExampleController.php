@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Url;
+use Drupal\page_example\Event\SimplePageLoadEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -65,8 +66,14 @@ class PageExampleController extends ControllerBase {
    */
   public function simple() {
     $this->loggerFactory->get('page_example_module')->notice('Simple page was displayed');
+
+    $event = new SimplePageLoadEvent('Event was dispatched.');
+
+    /** @var SimplePageLoadEvent $event_result */
+    $event_result = \Drupal::service('event_dispatcher')->dispatch('page_example.simple_page_load', $event);
+
     return array(
-      '#markup' => '<p>' . $this->t('Simple page: The quick brown fox jumps over the lazy dog.') . '</p>',
+      '#markup' => '<p>' . $this->t('Simple page: The quick brown fox jumps over the lazy dog.') . ' Event message: '.$event_result->getMessage().'</p>',
     );
   }
 

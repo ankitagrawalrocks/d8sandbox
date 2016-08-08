@@ -1,0 +1,7 @@
+services:
+  page_example_subscriber:
+    class: Drupal\page_example\EventSubscriber\PageExampleSubscriber
+    arguments: ['@logger.factory']
+    tags:
+      - { name: event_subscriber }
+
