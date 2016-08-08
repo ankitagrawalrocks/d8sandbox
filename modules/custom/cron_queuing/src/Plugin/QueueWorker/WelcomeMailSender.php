@@ -9,7 +9,7 @@ namespace Drupal\cron_queuing\Plugin\QueueWorker;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueWorkerBase;
-use Psr\Log\LoggerInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\user\Entity\User;
@@ -45,7 +45,7 @@ class WelcomeMailSender extends QueueWorkerBase implements ContainerFactoryPlugi
   /**
    * Logger
    *
-   * @var \Psr\Log\LoggerInterface
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
 
@@ -62,10 +62,10 @@ class WelcomeMailSender extends QueueWorkerBase implements ContainerFactoryPlugi
    *   Mail manager service.
    * @param EntityStorageInterface $userStorage
    *   User Storage
-   * @param LoggerInterface $logger
+   * @param LoggerChannelInterface $logger
    *   Logger
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MailManagerInterface $mailManager, EntityStorageInterface $userStorage, LoggerInterface $logger) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, MailManagerInterface $mailManager, EntityStorageInterface $userStorage, LoggerChannelInterface $logger) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->mailManager = $mailManager;
