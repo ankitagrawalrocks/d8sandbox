@@ -7,13 +7,14 @@
 {% endfor %}
 
 Here is special class as a part of span:
-<span class="{{ nice_classes|safe_join(' ') }}">{{ var1 }}</span>
+<span{{ attributes.addClass(nice_classes) }}>{{ var1 }}</span>
 $Var2[3]['g']: {{ var2.3.g }}
 Translatable hello: {{ 'hello'|t }}
 
 {% set minions = [] %}
+{% set dummy_class = '' %}
 
 {% for i in 0..myclasscount %}
     {% set minions = minions|merge([ 'minion' ~ i ]) %}
 {% endfor %}
-<div class="{{ minions|safe_join(' ') }}">{{ 'hello'|t }}</div>
+<div{{ some_custom_attributes.addClass(minions) }}>{{ 'hello'|t }}</div>

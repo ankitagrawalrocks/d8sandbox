@@ -34,6 +34,7 @@ function day19_theme($existing, $type, $theme, $path) {
         'var2' => NULL,
         'classes' => [],
         'myclasscount' => 0,
+        'some_custom_attributes' => new \Drupal\Core\Template\Attribute(),
       ),
     ),
   );
