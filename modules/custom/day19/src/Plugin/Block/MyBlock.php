@@ -36,7 +36,8 @@ class MyBlock extends BlockBase {
       '#title' => $this->t('Day19 Block'),
       '#var1' => $this->t('Test Description'),
       '#var2' => $some_array,
-      '#classes' => [ 'aaa_1', 'bbb-2' ]
+      '#classes' => [ 'aaa_1', 'bbb-2' ],
+      '#myclasscount' => 11,
     );
   }
 

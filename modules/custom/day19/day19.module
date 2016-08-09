@@ -33,6 +33,7 @@ function day19_theme($existing, $type, $theme, $path) {
         'var1' => NULL,
         'var2' => NULL,
         'classes' => [],
+        'myclasscount' => 0,
       ),
     ),
   );
