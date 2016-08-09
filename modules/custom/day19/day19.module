@@ -32,6 +32,7 @@ function day19_theme($existing, $type, $theme, $path) {
       'variables' => array(
         'var1' => NULL,
         'var2' => NULL,
+        'classes' => [],
       ),
     ),
   );

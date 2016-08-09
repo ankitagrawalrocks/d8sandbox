@@ -1,1 +1,10 @@
-Your template goes here..
+{# dirty maybe ... #}
+
+{% set nice_classes = [] %}
+
+{% for class in classes %}
+    {% set nice_classes = nice_classes|merge([class|clean_class]) %}
+{% endfor %}
+
+My example template
+<span class="{{ nice_classes|safe_join(' ') }}">{{ var1 }}</span>

@@ -14,7 +14,7 @@ use Drupal\Core\Block\BlockBase;
  *
  * @Block(
  *  id = "my_block",
- *  admin_label = @Translation("My block"),
+ *  admin_label = @Translation("Day19 Block"),
  * )
  */
 class MyBlock extends BlockBase {
@@ -33,9 +33,10 @@ class MyBlock extends BlockBase {
 
     return array(
       '#theme' => 'day19_twig_test',
-      '#title' => $this->t('Test Title'),
+      '#title' => $this->t('Day19 Block'),
       '#var1' => $this->t('Test Description'),
       '#var2' => $some_array,
+      '#classes' => [ 'aaa_1', 'bbb-2' ]
     );
   }
 
