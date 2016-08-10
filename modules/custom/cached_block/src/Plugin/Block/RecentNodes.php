@@ -71,6 +71,9 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function build() {
+    // node_get_recent() could be used too.
+    // but I find it cleaner to provide dependencies through DI
+
     $nids = $this->entityQuery->get('node')
       ->condition('status', 1)
       ->sort('changed', 'DESC')
@@ -78,7 +81,9 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
       ->execute();
 
     $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+
     $titles = '';
+    $cacheTags = [];
 
     /**
      * @var int $nid
@@ -86,9 +91,9 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
      */
     foreach ($nodes as $nid => $node) {
       $titles .= '<p>'.$node->getTitle().'</p>';
+      $cacheTagsArray = $node->getCacheTags();
+      $cacheTags[] = reset($cacheTagsArray);
     }
-
-    $cacheTags = $this->nidsToCacheTags($nids);
 
     return [
       '#markup' => $titles,
@@ -97,13 +102,5 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
         'tags' => $cacheTags,
       ]
     ];
-  }
-
-  protected function nidsToCacheTags($nids) {
-    $out = [];
-    foreach ($nids as $nid) {
-      $out[] = 'node:'.$nid;
-    }
-    return $out;
   }
 }
