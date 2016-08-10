@@ -88,6 +88,22 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
       $titles .= '<p>'.$node->getTitle().'</p>';
     }
 
-    return ['#markup' => $titles];
+    $cacheTags = $this->nidsToCacheTags($nids);
+
+    return [
+      '#markup' => $titles,
+      '#cache' => [
+        'keys' => array('some-key-1', 'some-key-2'),
+        'tags' => $cacheTags,
+      ]
+    ];
+  }
+
+  protected function nidsToCacheTags($nids) {
+    $out = [];
+    foreach ($nids as $nid) {
+      $out[] = 'node:'.$nid;
+    }
+    return $out;
   }
 }
