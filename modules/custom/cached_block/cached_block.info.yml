@@ -1,0 +1,5 @@
+type: module
+name: Cached Block
+description: 'Lesson 20 from D8Cards.com: Block that demostrates some caching mechanisms'
+package: Mirsoft
+core: 8.x

@@ -61,15 +61,14 @@ class StocksUpdaterService implements StocksUpdaterServiceInterface {
     $query = $this->queryFactory->get('block_content')
       ->condition('type', 'stock_exchange_rate_card');
 
-    $nids = $query->execute();
-
-    $entities = $this->entityTypeManager->getStorage('block_content')->loadMultiple($nids);
+    $eids = $query->execute();
+    $entities = $this->entityTypeManager->getStorage('block_content')->loadMultiple($eids);
 
     /**
-     * @var int $nid
+     * @var int $eid
      * @var \Drupal\Core\Entity\ContentEntityBase $entity
      */
-    foreach ($entities as $nid => $entity) {
+    foreach ($entities as $eid => $entity) {
       $symbol = $entity->get('field_symbol')->value;
       $entity_url = str_replace('%symbol%', $symbol, $this->apiUrl);
 

@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Lat-Long' block with dependency injection.
- * IMPORTANT: To be able to use DI, it MUST implement Contain
+ * IMPORTANT: To be able to use DI, it MUST implement ContainerFactoryPluginInterface
  *
  * @Block(
  *   id = "lat_long_block",
