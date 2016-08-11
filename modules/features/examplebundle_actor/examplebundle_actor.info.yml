@@ -1,0 +1,13 @@
+name: Actor
+description: 'Provides Actor content type and related configuration. '
+type: module
+core: 8.x
+dependencies:
+  - examplebundle_movie
+  - field
+  - menu_ui
+  - node
+  - path
+  - text
+  - user
+package: examplebundle

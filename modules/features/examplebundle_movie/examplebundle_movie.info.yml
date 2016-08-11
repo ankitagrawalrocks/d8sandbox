@@ -1,0 +1,11 @@
+name: Movie
+description: 'Provides Movie content type and related configuration. '
+type: module
+core: 8.x
+dependencies:
+  - field
+  - menu_ui
+  - node
+  - text
+  - user
+package: examplebundle
