@@ -95,10 +95,12 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
       $cacheTags[] = reset($cacheTagsArray);
     }
 
+    $cacheTags[] = 'node:add';
+
     return [
       '#markup' => $titles,
       '#cache' => [
-        'keys' => array('some-key-1', 'some-key-2'),
+        'keys' => array('my-key-1', 'my-key-2'),
         'tags' => $cacheTags,
       ]
     ];
