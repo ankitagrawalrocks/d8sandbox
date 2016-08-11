@@ -37,8 +37,6 @@ class LatLongBlock extends BlockBase implements ContainerFactoryPluginInterface 
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, ImmutableConfig $defaultSettings) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-
-    // DI of config doesn't work for some reason from static create method, I managed to inject config only this way...
     $this->defaultSettings = $defaultSettings;
   }
 
