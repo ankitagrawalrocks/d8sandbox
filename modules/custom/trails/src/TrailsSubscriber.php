@@ -28,6 +28,8 @@ class TrailsSubscriber implements EventSubscriberInterface {
    */
   public function saveTrail(GetResponseEvent $event) {
 
+    // not very nice, we should get rid of "Drupal" statements and inject by DI....
+    // @see HookInitReplaceSubscriber for better implementation
     $request = \Drupal::request();
     if ($request->getMethod() != 'GET') {
       return;

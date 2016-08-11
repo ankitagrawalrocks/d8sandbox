@@ -1,0 +1,5 @@
+type: module
+name: Hook Init Replacement
+description: 'Lesson 21 from D8Cards.com: hook_init replacement through EventSubscriber'
+package: Mirsoft
+core: 8.x
