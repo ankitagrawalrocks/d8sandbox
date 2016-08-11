@@ -5,6 +5,7 @@ namespace Drupal\cached_block\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Session\AccountProxy;
 use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -34,6 +35,13 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
   protected $entityTypeManager;
 
   /**
+   * Current user
+   *
+   * @var AccountProxy
+   */
+  protected $currentUser;
+
+  /**
    * Constructs a new BookNavigationBlock instance.
    *
    * @param array $configuration
@@ -47,11 +55,12 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
    * @param EntityTypeManagerInterface $entityTypeManager
    *   Entity type manager
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, QueryFactory $entityQuery, EntityTypeManagerInterface $entityTypeManager, AccountProxy $currentUser) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->entityQuery = $entityQuery;
     $this->entityTypeManager = $entityTypeManager;
+    $this->currentUser = $currentUser;
   }
 
   /**
@@ -63,7 +72,8 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
       $plugin_id,
       $plugin_definition,
       $container->get('entity.query'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('current_user')
     );
   }
 
@@ -76,6 +86,7 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
 
     $nids = $this->entityQuery->get('node')
       ->condition('status', 1)
+      ->condition('uid', $this->currentUser->id())
       ->sort('changed', 'DESC')
       ->range(0, 5)
       ->execute();
@@ -102,6 +113,7 @@ class RecentNodes extends BlockBase implements ContainerFactoryPluginInterface {
       '#cache' => [
         'keys' => array('my-key-1', 'my-key-2'),
         'tags' => $cacheTags,
+        'contexts' => array('user')
       ]
     ];
   }
