@@ -12,6 +12,7 @@ use Drupal\Core\Controller\ControllerBase;
 
 /**
  * Defines a controller to experiment with.
+ * @todo rewrite it to use DI using ContainerInjectionInterface
  */
 class Blindd8Controller extends ControllerBase
 {
