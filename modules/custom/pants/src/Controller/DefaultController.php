@@ -4,9 +4,8 @@ namespace Drupal\pants\Controller;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AccountProxy;
+use Drupal\user\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DefaultController extends ControllerBase {
@@ -43,7 +42,7 @@ class DefaultController extends ControllerBase {
     return AccessResult::allowedIf($this->currentUser->hasPermission('access pants color'));
   }
 
-  public function color(AccountInterface $user) {
+  public function color(User $user) {
     $config = $this->defaultSettings;
     $pants_color = isset($user->pants_color->value) ? $user->pants_color->value : $config->get('default_color');
     return [

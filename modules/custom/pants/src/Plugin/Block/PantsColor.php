@@ -19,7 +19,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class PantsColor extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /** @var ImmutableConfig $defaultSettings  */
+  /**
+   * Default settings of pants module
+   *
+   * @var ImmutableConfig $defaultSettings
+   */
   protected $defaultSettings;
 
   /**
