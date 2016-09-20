@@ -1,0 +1,5 @@
+default_color: 'blue'
+available_colors:
+  - 'blue'
+  - 'red'
+  - 'green'

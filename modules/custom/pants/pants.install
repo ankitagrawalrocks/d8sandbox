@@ -1,0 +1,10 @@
+<?php
+function pants_install() {
+  $role = ['id' => 'pants', 'label' => 'Pants manager'];
+  \Drupal\user\Entity\Role::create($role)->save();
+}
+
+function pants_uninstall() {
+  $role = \Drupal\user\Entity\Role::load('pants');
+  $role->delete();
+}

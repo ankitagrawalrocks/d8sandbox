@@ -1,0 +1,8 @@
+name: Pants
+description: 'Tracks pants status for users.'
+core: 8.x
+dependencies:
+ - user
+ - options
+type: module
+configure: pants.settings

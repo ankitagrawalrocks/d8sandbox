@@ -1,0 +1,15 @@
+pants.color:
+ path: '/pants/color/{user}'
+ defaults:
+  _title: 'Change pants color'
+  _controller: 'Drupal\pants\Controller\DefaultController::color'
+ requirements:
+#  _custom_access: 'Drupal\pants\Controller\DefaultController::colorAccess'  -- only as an example of custom color access, was removed later in demo
+  _permission: 'access pants color'
+pants.settings:
+  path: '/admin/config/system/pants'
+  defaults:
+    _title: 'Pants settings'
+    _form: 'Drupal\pants\Form\PantsSettings'
+  requirements:
+    _permission: 'administer pants settings'
