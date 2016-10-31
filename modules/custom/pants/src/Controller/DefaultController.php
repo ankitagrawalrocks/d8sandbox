@@ -43,6 +43,7 @@ class DefaultController extends ControllerBase {
   }
 
   public function color(User $user) {
+    module_set_weight('pants', 100);
     $config = $this->defaultSettings;
     $pants_color = isset($user->pants_color->value) ? $user->pants_color->value : $config->get('default_color');
     return [
