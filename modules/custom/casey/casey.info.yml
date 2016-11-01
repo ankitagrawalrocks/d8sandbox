@@ -1,0 +1,4 @@
+name: Casey
+type: module
+description: Provides facilities for changing the capitalization schemes of strings.
+core: '8.x'
