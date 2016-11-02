@@ -10,3 +10,10 @@ lib:
   dependencies:
     - core/jquery
     - core/drupal
+
+boostrap-alerts:
+  version: 3.3.6
+  css:
+    css/alerts.css
+  js:
+    js/alert.js
